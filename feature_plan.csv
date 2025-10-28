@@ -3,35 +3,35 @@ nct_id,keep,identifier,Unique trial ID for traceability/provenance.
 detailed_description,keep,primary_text,Main source for simplification & summarization.
 brief_summary,keep,reference_text,Comparison target for coverage & readability diffs.
 brief_title,keep,aux_text,Concise signal of condition/intervention; useful for summaries.
-official_title,optional,aux_text,Formal title; may provide specific terminology.
+official_title,keep,aux_text,Formal title; may provide specific terminology.
 study_type,keep,metadata,Context for wording (interventional vs observational).
 overall_status,keep,metadata,Status cues phrasing and may affect inclusion.
-phases,keep,metadata,"Phase can inform lay explanation (e.g., late-stage confirmation)."
+phases,drop,metadata,Do not provide valuable information for trail description.
 conditions,keep,metadata,Key to patient relevance; appears in the summary.
 minimum_age,keep,metadata,Eligibility snippet (age bounds).
 maximum_age,keep,metadata,Eligibility snippet (age bounds).
 sex,keep,metadata,Eligibility snippet (sex).
-healthy_volunteers,optional,metadata,May be useful for eligibility sentences.
+healthy_volunteers,keep,metadata,May be useful for eligibility sentences.
 eligibility_criteria,keep,aux_text,Source for ‘for whom’ phrasing; optional extraction.
 lead_sponsor_name,optional,metadata,Provenance; not typically in lay summary.
 lead_sponsor_class,drop,metadata,Likely irrelevant for patient-facing text.
 enrollment_count,optional,metadata,Contextual statistic; might be mentioned sparingly.
 start_date,optional,metadata,Timeline context if needed.
-primary_completion_date,optional,metadata,Timeline context if needed.
-completion_date,optional,metadata,Timeline context if needed.
-keywords,optional,aux_text,May seed domain vocabulary/jargon detection.
+primary_completion_date,drop,metadata,Timeline context probably needed.
+completion_date,drop,metadata,Timeline context probably not needed.
+keywords,keep,aux_text,May seed domain vocabulary/jargon detection.
 locations,optional,metadata,High-level geography; not always needed in summary.
 overall_officials,drop,metadata,Low value for lay summary text.
 outcomes,keep,metadata,Primary/secondary measures inform ‘what is measured’.
 design_info,keep,metadata,Randomization/masking/purpose → plain-language explanation.
 mesh_terms,optional,metadata,Useful for controlled vocabulary/jargon mapping.
-condition_browse_module,optional,metadata,Taxonomy signs; optional for analysis.
-intervention_browse_module,optional,metadata,Taxonomy signs; optional for analysis.
+condition_browse_module,drop,metadata,Taxonomy signs; probably not needed.
+intervention_browse_module,drop,metadata,Taxonomy signs; probably not.
 why_stopped,optional,metadata,"If terminated, can inform a cautionary note in summary."
 expanded_access_info,drop,metadata,Out-of-scope for lay summary generation.
 org_study_id_info,drop,metadata,Administrative; not needed for text generation.
 arm_groups,optional,metadata,"If present, may help clarify groups in lay terms."
-interventions,keep,metadata,Names/types of interventions: key to ‘what is tested’.
+interventions,drop,metadata,Names/types of interventions: key to ‘what is tested’.
 study_references,drop,metadata,Not needed for lay summary text.
 misc_info_module,drop,metadata,Likely non-essential for our task.
 updated_at,optional,metadata,Recency; can be used for filtering if needed.
