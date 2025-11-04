@@ -1,6 +1,17 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/hgNAtOO3)
 # Bridging the Language Gap: A Systematic Approach to Generating Patient-Friendly Clinical Study Descriptions
 
+## TO DO
+- fill out missing max and min age -> for max take max for min take 1
+- fill out study_population -> "general population" or something generic
+- decide how to fill out missing keywords
+- drop rows that are missing what's under outcome
+- decide what to do with rows that have very long detailed description (avg=296 and max=4731) -> count how many over 1000
+- decide if we use the textstat metrics for readability
+- decide how to start experimenting for p3 -> what we want to do with the data 
+- decide the final stage that we are having the project after p2 and how will p3 pick it up
+- clean up and organize notebook
+
 ## Repo Organization: 
 To add new implementation please create new branch and do merge request (do not push directly to 
 main to prevent conflicts). To create new branch:
