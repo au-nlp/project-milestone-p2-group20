@@ -1,27 +1,6 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/hgNAtOO3)
 # Bridging the Language Gap: A Systematic Approach to Generating Patient-Friendly Clinical Study Descriptions
 
-## TO DO
-- x fill out missing max and min age -> for max take max for min take 1
-- x fill out study_population -> "general population" or something generic
-- x decide how to fill out missing keywords
-- x drop rows that are missing what's under outcome
-- x decide what to do with rows that have very long detailed description (avg=296 and max=4731) -> count how many over 1000
-- decide if we use the textstat metrics for readability
-- decide how to start experimenting for p3 -> what we want to do with the data 
-- decide the final stage that we are having the project after p2 and how will p3 pick it up
-- show how the data will look like at the end of p2:
- "title: ..., description: ..., eligibility criteria: ..., ....."
-- clean up and organize notebook
-
-## Repo Organization: 
-To add new implementation please create new branch and do merge request (do not push directly to 
-main to prevent conflicts). To create new branch:
-- checkout to main: git checkout main
-- create new branch: git checkout -b branch-name
-
-[Idea, Abstract,Methods other Documentation(P1, P2 and P3) below]
-
 Idea: Transforming Clinical Trial Descriptions into Patient-Readable Summaries
 
 Dataset: Clinical Trails - https://huggingface.co/datasets/louisbrulenaudet/clinical-trials/viewer/default/train?views%5B%5D=train
@@ -35,13 +14,43 @@ We would like for this project to be of help for people that want to join a clin
 This project introduces a user-centered framework for generating patient-friendly clinical study descriptions to help individuals find clinical trials that best match their needs and circumstances. Unlike existing trial listings that use technical, hard-to-read language, our method focuses on translating complex study data into clear, accessible summaries that patients can easily understand and compare. The novelty lies in combining structured data inputs (such as condition, intervention, and eligibility) with plain-language generation techniques and readability evaluation, making it possible to automatically produce consistent, comprehensible summaries at scale. By improving how study information is presented,
 this approach empowers patients to make more informed decisions and enhances accessibility to clinical research opportunities.
 
-## Methods for Phase 2
+## Methodology Overview and Milestones for P2:
+### 1. Feature Understanding
 
-This project follows a structured, multi-phase methodology designed to analyze, clean, and prepare clinical trial text data for generating patient-friendly study descriptions. In Phase 1 (Data Understanding & Feasibility), we load the dataset from Hugging Face, inspect its structure, assess completeness, and identify key fields such as condition, intervention, and detailed descriptions. We evaluate missing values, summarize metadata distributions (study type, phase, status, enrollment), and document filtering decisions to ensure a representative, high-quality dataset. Phase 2 (Text Exploration) focuses on understanding textual complexity through word and sentence length distributions, readability metrics, vocabulary analysis, and jargon density. We visualize linguistic patterns, such as part-of-speech distributions and frequent medical terms, to quantify how technical or specialized the text is. Phase 3 (Text Preprocessing) standardizes and cleans the text through lowercasing, punctuation and HTML removal, sentence segmentation, tokenization, stopword removal, and lemmatization, ensuring the corpus is ready for modeling. Rare word handling and storage of cleaned text in structured columns provide a reusable data pipeline. Phase 4 (Descriptive Summaries & Visualization) compiles readability, vocabulary, and complexity metrics into comparative dashboards and visualizations, highlighting key trends across study types and conditions. Finally, Phase 5 (Synthesis & Next Steps) summarizes insights—confirming that clinical trial texts are lengthy and highly technical—and outlines the next stage of the project, which involves applying NLP methods for text simplification and summarization. Together, these phases ensure a transparent, reproducible process from raw data inspection to a ready-to-model dataset aimed at producing clear, accessible clinical trial summaries for patients.
+The first stage of the methodology focused on understanding the dataset’s structure and identifying which fields are most relevant for the task of generating patient-friendly summaries. The dataset, sourced from the Clinical Trials registry, contains a large variety of metadata fields—ranging from study identifiers and administrative timestamps to long free-text descriptions of the trials. Through a systematic schema inspection and exploration of data samples, we categorized each feature according to its potential contribution to the summarization and simplification objectives.
+Features such as the detailed_description, brief_summary, and eligibility_criteria were identified as core text sources, since they contain the essential information patients would need to understand what a clinical trial is about, who it targets, and why it is being conducted. Supplementary fields like keywords and mesh terms were classified as optional—potentially useful for contextual or personalized summaries. Conversely, administrative or highly technical identifiers (e.g. org_study_id_info, and raw date fields) were considered irrelevant for the linguistic analysis and were dropped to streamline processing.
+This step culminated in the creation of a feature selection table that clearly outlines for each column whether it should be kept, treated as optional, or excluded, along with the rationale for its categorization. This structured overview ensures transparency and consistency throughout the project.
+
+### 2. Data Quality and Missingness
+
+Once the relevant features were identified, the next step was to assess data quality and completeness. A detailed missingness analysis was conducted across all fields, quantifying the percentage of missing values and visualizing their distribution to identify problematic attributes. Some fields, such as interventions, were found to have substantial missing data, making them unreliable for consistent modeling.
+To ensure the dataset remains robust, we defined a filtering rule: trials without meaningful descriptive text—specifically those lacking a detailed_description—were excluded from the working subset. After this filtering, a sufficient number of records remained, confirming that the dataset is large enough to support model training and evaluation. We also enriched rows where maximum age, minimum age and study population was missing.
+
+### 3. Text Analysis and Readability
+
+The third stage aimed to characterize the linguistic properties of the clinical trial texts to better understand the nature of the simplification challenge. For each record, we measured text lengths (in words). We then applied standard readability formulas—such as the Flesch Reading Ease, Flesch-Kincaid Grade Level, and Gunning Fog Index—to estimate how difficult the texts would be for an average reader to comprehend.
+The results confirmed that typical detailed_description sections are lengthy, dense, and written at an advanced academic or professional level, often corresponding to university-level readability. These findings quantitatively validate the hypothesis that the language used in clinical trial registries poses a barrier to patients and lay readers.
+In addition, we identified and analyzed technical or medical jargon through a heuristic approach that combines word frequency statistics, biomedical suffix detection (e.g., “-itis”, “-oma”, “-genic”), and acronym recognition. A measure of jargon density was introduced to estimate the proportion of complex or specialized terms per document. This provides a foundation for designing simplification strategies—such as substituting jargon with simpler synonyms or adding short explanations to improve accessibility.
+
+### 4. Key Findings and Conclusion
+
+The exploratory analysis led to several important insights that guide the next stages of the project. First, while roughly one-third of clinical trials lack sufficient textual descriptions to be useful, the remaining data form a large, diverse, and high-quality corpus suitable for fine-tuning summarization models. Second, readability metrics demonstrate that the language of clinical trial descriptions is far beyond typical patient reading levels, confirming the practical need for automated simplification.
+Third, several metadata features—such as conditions, phases, and study_population—show potential for enhancing summary generation by providing contextual cues. For example, knowing that a study involves pediatric participants or oncology trials could help tailor the level of explanation and tone in the output summaries.
+Overall, these analyses establish a clear empirical basis for proceeding to the modeling phase. The dataset is now clean, well-understood, and ready for use in developing and fine-tuning NLP models that can generate simplified, patient-readable summaries of clinical trials while preserving essential medical information and factual accuracy.
 
 
-## Methods for Phase 3
-Building on these preparation phases, the next stage implements a patient-summary generation pipeline that transforms the cleaned trial data into lay-friendly narratives through a sequence of NLP-driven modules. The process begins with data ingestion, where key fields such as nct_id, brief_title, study_type, conditions, and detailed_description are retrieved for processing. Next, a jargon detection module uses tokenization and medical term recognition via resources like UMLS, MeSH, and spaCy’s named entity recognition to identify complex terms, acronyms, and domain-specific language. Each identified term is categorized (e.g., medication, biomarker, Latinism) and scored for complexity based on word frequency and external difficulty indices. In the simplification stage, each technical term is rewritten or annotated with plain-English definitions using a combination of rule-based mappings, dictionary lookups, and LLM-assisted paraphrasing. These simplified terms feed into a summary generation module, which constructs a concise, coherent narrative covering the study’s purpose, population, intervention, design, and outcomes. The model integrates template-based sentence framing with transformer-based summarization (e.g., BART or T5) to maintain factual accuracy while reducing linguistic complexity. The generated summary is annotated with inline glossary explanations and then passed through a faithfulness validation step, where semantic similarity scoring (e.g., Sentence-BERT embeddings) checks alignment between the simplified summary and original content to ensure key study facts are preserved. Finally, the pipeline performs readability evaluation (Flesch–Kincaid, Gunning Fog, and jargon density metrics) and ethical filtering to remove prescriptive or misleading language before exporting structured outputs—including a Markdown summary, a glossary JSON, and a report JSON containing readability and alignment scores. This end-to-end process produces traceable, patient-oriented summaries that preserve medical accuracy while improving accessibility and comprehension.
+## Proposed timeline:
+
+1. Finetune a pretrained summarization model with respect to our chosen features (2.5 weeks)
+2. Choose a good model to do the simplification of the summary from the first step (2.5 weeks)
+3. Identify jargon words in the trial and generate a glossary of their explanation (1 week)
+
+
+## Repo Organization: 
+To add new implementation please create new branch and do merge request (do not push directly to 
+main to prevent conflicts). To create new branch:
+- checkout to main: git checkout main
+- create new branch: git checkout -b branch-name
 
 
 
