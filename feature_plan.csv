@@ -19,7 +19,7 @@ enrollment_count,optional,metadata,Contextual statistic; might be mentioned spar
 start_date,optional,metadata,Timeline context if needed.
 primary_completion_date,drop,metadata,Timeline context probably needed.
 completion_date,drop,metadata,Timeline context probably not needed.
-keywords,keep,aux_text,May seed domain vocabulary/jargon detection.
+keywords,optional,aux_text,May seed domain vocabulary/jargon detection.
 locations,optional,metadata,High-level geography; not always needed in summary.
 overall_officials,drop,metadata,Low value for lay summary text.
 outcomes,keep,metadata,Primary/secondary measures inform ‘what is measured’.
