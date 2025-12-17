@@ -1,0 +1,578 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "clinical-trials",
+  "dataset_size": 3939415092,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00000-of-00008.parquet": {
+      "num_bytes": 221573103,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00001-of-00008.parquet": {
+      "num_bytes": 220645803,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00002-of-00008.parquet": {
+      "num_bytes": 221366330,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00003-of-00008.parquet": {
+      "num_bytes": 222029916,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00004-of-00008.parquet": {
+      "num_bytes": 220488085,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00005-of-00008.parquet": {
+      "num_bytes": 223318231,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00006-of-00008.parquet": {
+      "num_bytes": 221905867,
+      "checksum": null
+    },
+    "hf://datasets/louisbrulenaudet/clinical-trials@67359a8b9906e52190457a4be6bc9bce903d7e23/data/train-00007-of-00008.parquet": {
+      "num_bytes": 221840502,
+      "checksum": null
+    }
+  },
+  "download_size": 1773167837,
+  "features": {
+    "nct_id": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "updated_at": {
+      "dtype": "timestamp[us]",
+      "_type": "Value"
+    },
+    "brief_title": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "official_title": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "acronym": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "study_type": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "overall_status": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "study_first_submit_date": {
+      "dtype": "timestamp[ms]",
+      "_type": "Value"
+    },
+    "start_date": {
+      "dtype": "timestamp[ms]",
+      "_type": "Value"
+    },
+    "primary_completion_date": {
+      "dtype": "timestamp[ms]",
+      "_type": "Value"
+    },
+    "completion_date": {
+      "dtype": "timestamp[ms]",
+      "_type": "Value"
+    },
+    "phases": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "enrollment_count": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "minimum_age": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "maximum_age": {
+      "dtype": "float64",
+      "_type": "Value"
+    },
+    "sex": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "healthy_volunteers": {
+      "dtype": "bool",
+      "_type": "Value"
+    },
+    "brief_summary": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "detailed_description": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "eligibility_criteria": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "lead_sponsor_name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "lead_sponsor_class": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "org_study_id_info": {
+      "id": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "link": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "type": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "why_stopped": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "expanded_access_info": {
+      "hasExpandedAccess": {
+        "dtype": "bool",
+        "_type": "Value"
+      },
+      "nctId": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "statusForNctId": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "last_update_submit_qc_date": {
+      "dtype": "timestamp[ms]",
+      "_type": "Value"
+    },
+    "last_update_post_date_struct": {
+      "date": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "type": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "study_first_post_date_struct": {
+      "date": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "type": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "std_ages": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "study_population": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "sampling_method": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "oversight_has_dmc": {
+      "dtype": "bool",
+      "_type": "Value"
+    },
+    "design_info": {
+      "allocation": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "interventionModel": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "interventionModelDescription": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "maskingInfo": {
+        "masking": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "maskingDescription": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "whoMasked": {
+          "feature": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "_type": "List"
+        }
+      },
+      "observationalModel": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "primaryPurpose": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "timePerspective": {
+        "dtype": "string",
+        "_type": "Value"
+      }
+    },
+    "conditions": {
+      "feature": {
+        "dtype": "string",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "keywords": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "interventions": {
+      "dtype": "null",
+      "_type": "Value"
+    },
+    "locations": {
+      "feature": {
+        "city": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "country": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "facility": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "geoPoint": {
+          "lat": {
+            "dtype": "float64",
+            "_type": "Value"
+          },
+          "lon": {
+            "dtype": "float64",
+            "_type": "Value"
+          }
+        },
+        "state": {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      },
+      "_type": "List"
+    },
+    "collaborators": {
+      "feature": {
+        "class": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "name": {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      },
+      "_type": "List"
+    },
+    "arm_groups": {
+      "dtype": "null",
+      "_type": "Value"
+    },
+    "outcomes": {
+      "other": {
+        "feature": {
+          "description": {
+            "dtype": "null",
+            "_type": "Value"
+          },
+          "measure": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "timeFrame": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "primary": {
+        "feature": {
+          "description": {
+            "dtype": "null",
+            "_type": "Value"
+          },
+          "measure": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "timeFrame": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "secondary": {
+        "feature": {
+          "description": {
+            "dtype": "null",
+            "_type": "Value"
+          },
+          "measure": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "timeFrame": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      }
+    },
+    "overall_officials": {
+      "feature": {
+        "affiliation": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "name": {
+          "dtype": "string",
+          "_type": "Value"
+        },
+        "role": {
+          "dtype": "string",
+          "_type": "Value"
+        }
+      },
+      "_type": "List"
+    },
+    "study_references": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "misc_info_module": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "condition_browse_module": {
+      "ancestors": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "browseBranches": {
+        "feature": {
+          "abbrev": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "name": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "browseLeaves": {
+        "feature": {
+          "asFound": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "name": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "relevance": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "meshes": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      }
+    },
+    "intervention_browse_module": {
+      "ancestors": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "browseBranches": {
+        "feature": {
+          "abbrev": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "name": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "browseLeaves": {
+        "feature": {
+          "asFound": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "name": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "relevance": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "meshes": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      }
+    },
+    "mesh_terms": {
+      "conditions": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      },
+      "interventions": {
+        "feature": {
+          "id": {
+            "dtype": "string",
+            "_type": "Value"
+          },
+          "term": {
+            "dtype": "string",
+            "_type": "Value"
+          }
+        },
+        "_type": "List"
+      }
+    },
+    "combined_summary": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 5712582929,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 3939415092,
+      "num_examples": 541897,
+      "shard_lengths": [
+        68738,
+        69737,
+        69737,
+        69737,
+        69737,
+        68737,
+        68737,
+        56737
+      ],
+      "dataset_name": "clinical-trials"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
