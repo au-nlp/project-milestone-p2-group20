@@ -71,16 +71,14 @@ Medical term extraction is primarily performed using a domain-specific Named Ent
 
 To improve coverage, a controlled fallback mechanism is added for terms that are not detected as named entities. This fallback combines word rarity statistics with rule-based medical patterns, such as common biomedical prefixes, suffixes, and substrings. A blacklist of known non-medical words is used to reduce noise and prevent common trial-related language from being incorrectly classified as medical terminology.
 
----
-
-### 4. Definition Retrieval and External Knowledge Sources
+#### Definition Retrieval and External Knowledge Sources
 
 For each extracted medical term, a short explanation is retrieved from external knowledge bases. BioPortal is used as the primary source of definitions, with the MeSH ontology selected due to its standard use in biomedical contexts and broad coverage of clinical terminology. These definitions provide concise and medically grounded explanations suitable for clinical concepts.
 
 When no suitable definition is available through BioPortal, Wikipedia is used as a fallback source. Wikipedia summaries are generally more accessible and easier to understand for non-expert users, making them appropriate for patient-facing explanations. To improve efficiency and ensure consistent results, retrieved definitions are cached locally using a lightweight SQLite database, reducing repeated external requests when processing multiple trials.
 
 ---
-### 6. LLM-Based Generation with Groq and LLaMA
+### 4. LLM-Based Generation with Groq and LLaMA
 
 In the final stage of the pipeline, a large language model is used to generate patient-friendly summaries based on the processed clinical trial text. For this purpose, we integrate the Groq API with a LLaMA-based instruction-tuned model. This setup allows for fast inference while maintaining high-quality natural language generation.
 
