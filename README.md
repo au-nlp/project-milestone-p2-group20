@@ -45,13 +45,68 @@ Overall, these analyses establish a clear empirical basis for proceeding to the 
 2. Choose a good model to do the simplification of the summary from the first step (2.5 weeks)
 3. Identify jargon words in the trial and generate a glossary of their explanation (1 week)
 
+## Methodology Overview and Milestones for P3:
+
+### 1. Patient-Friendly Summary Generation
+
+The third milestone moves from exploratory analysis to model-based text generation. The first component of this stage focuses on generating patient-friendly summaries of clinical trial descriptions. Using the insights gained from the readability and jargon analysis in P2, we fine-tune a pretrained sequence-to-sequence summarization model on clinical trial text. The model is trained to condense long and technical descriptions into shorter summaries that preserve essential information such as the purpose of the study, the target population, and the main intervention.
+
+The summarization step is applied primarily to the detailed_description field, which contains the most comprehensive information about each trial. The resulting summaries are evaluated using readability metrics introduced earlier in the project, allowing comparison between the original description, the generated summary, and the provided brief_summary. This makes it possible to assess whether the generated output is both shorter and easier to read, while still remaining faithful to the source content.
+
+---
+
+### 2. Simplification and Readability-Oriented Evaluation
+
+Beyond length reduction, an important goal of the summarization component is linguistic simplification. To assess this, multiple readability measures are applied to the generated summaries, including Flesch Reading Ease and Flesch–Kincaid Grade Level. These metrics are used to quantify improvements in accessibility compared to the original clinical trial text.
+
+In addition to standard readability formulas, a simple-English–oriented analysis is conducted by estimating jargon density. This analysis helps identify whether the summarization model successfully reduces the proportion of complex or specialized terms, or whether additional support is needed to help users understand the remaining technical language. The findings from this step motivate the introduction of an explicit glossary component.
+
+---
+
+### 3. Medical Term Identification and Glossary Construction
+
+Even after summarization, clinical trial descriptions often contain unavoidable medical terminology that cannot be safely removed without loss of meaning. To address this, a glossary generation module is introduced to complement the patient-friendly summaries. The goal of this component is to automatically identify medical terms in the text and provide short, accessible explanations for each one.
+
+Medical term extraction is primarily performed using a domain-specific Named Entity Recognition model from scispaCy, which is designed for scientific and biomedical text. Compared to earlier approaches, this model offers broader coverage of clinically relevant concepts, including conditions, procedures, biological processes, and interventions. Abbreviation detection is included to handle common medical acronyms and their expanded forms, which are frequently used in clinical trial documentation.
+
+To improve coverage, a controlled fallback mechanism is added for terms that are not detected as named entities. This fallback combines word rarity statistics with rule-based medical patterns, such as common biomedical prefixes, suffixes, and substrings. A blacklist of known non-medical words is used to reduce noise and prevent common trial-related language from being incorrectly classified as medical terminology.
+
+---
+
+### 4. Definition Retrieval and External Knowledge Sources
+
+For each extracted medical term, a short explanation is retrieved from external knowledge bases. BioPortal is used as the primary source of definitions, with the MeSH ontology selected due to its standard use in biomedical contexts and broad coverage of clinical terminology. These definitions provide concise and medically grounded explanations suitable for clinical concepts.
+
+When no suitable definition is available through BioPortal, Wikipedia is used as a fallback source. Wikipedia summaries are generally more accessible and easier to understand for non-expert users, making them appropriate for patient-facing explanations. To improve efficiency and ensure consistent results, retrieved definitions are cached locally using a lightweight SQLite database, reducing repeated external requests when processing multiple trials.
+
+---
+### 6. LLM-Based Generation with Groq and LLaMA
+
+In the final stage of the pipeline, a large language model is used to generate patient-friendly summaries based on the processed clinical trial text. For this purpose, we integrate the Groq API with a LLaMA-based instruction-tuned model. This setup allows for fast inference while maintaining high-quality natural language generation.
+
+The LLM is prompted with structured inputs derived from earlier pipeline stages, including cleaned trial descriptions and relevant contextual information. The model is instructed to produce concise, plain-English summaries that focus on the key aspects of a clinical trial, such as its purpose, target population, and main intervention. Special care is taken in prompt design to encourage faithful rewriting rather than the introduction of new or speculative information.
+
+This LLM-based generation step complements the earlier summarization and glossary components. While traditional summarization models help reduce text length and complexity, the LLaMA-based model further improves fluency and readability, making the final output more suitable for non-expert users. By combining deterministic preprocessing steps with generative modeling, the pipeline balances control, interpretability, and linguistic quality.
+
+The use of Groq enables efficient experimentation and rapid iteration, which is particularly useful in a research and prototyping setting. Overall, this component completes the system by producing coherent, patient-oriented summaries that integrate seamlessly with the glossary and readability evaluation outputs developed in earlier stages.
+
+
+
+##  Overall Conclusion
+
+The final system integrates all components developed throughout the project into a single pipeline. Given a clinical trial identifier, the pipeline produces three complementary artifacts: a patient-friendly summary of the trial, a glossary of medical terms with explanations, and a set of readability and faithfulness metrics comparing the generated text to the original description. Together, these outputs aim to improve both accessibility and transparency of clinical trial information.
+
+This milestone completes the project’s objective of bridging the language gap between clinical research documentation and patient understanding. By combining summarization, simplification, and targeted explanation of medical terminology, the system provides a practical and extensible approach for making clinical trial information more accessible to non-expert audiences.
+
+Across all milestones, this project demonstrates that a systematic NLP pipeline can significantly improve the accessibility of clinical trial descriptions without sacrificing essential medical information. The combination of data analysis, model-based summarization, readability evaluation, and glossary generation offers a comprehensive framework for patient-centered clinical text processing. The final system is modular and can be extended in future work to support personalization, multilingual output, or integration with real-world clinical trial platforms.
+
+
 
 ## Repo Organization: 
 To add new implementation please create new branch and do merge request (do not push directly to 
 main to prevent conflicts). To create new branch:
 - checkout to main: git checkout main
 - create new branch: git checkout -b branch-name
-
 
 
 P1: Suggestions(from TA)
