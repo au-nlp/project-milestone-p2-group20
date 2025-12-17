@@ -51,7 +51,11 @@ Overall, these analyses establish a clear empirical basis for proceeding to the 
 
 The third milestone moves from exploratory analysis to model-based text generation. The first component of this stage focuses on generating patient-friendly summaries of clinical trial descriptions. Using the insights gained from the readability and jargon analysis in P2, we fine-tune a pretrained sequence-to-sequence summarization model on clinical trial text. The model is trained to condense long and technical descriptions into shorter summaries that preserve essential information such as the purpose of the study, the target population, and the main intervention.
 
-The summarization step is applied primarily to the detailed_description field, which contains the most comprehensive information about each trial. The resulting summaries are evaluated using readability metrics introduced earlier in the project, allowing comparison between the original description, the generated summary, and the provided brief_summary. This makes it possible to assess whether the generated output is both shorter and easier to read, while still remaining faithful to the source content.
+The summarization step is applied primarily to the detailed_description field, which contains the most comprehensive information about each trial, but also different other fields we found useful during milestone 2. The resulting summaries are evaluated using rogue metric, allowing comparison between the original description, the generated summary, and the provided brief_summary. This makes it possible to assess whether the generated output is faithful to the original source content. 
+
+To obtain such a model, we used a pretrained "google/flan-t5-small" sequence to sequence pretrained model, and we fine-tuned it on our clinical trial data using the "brief_summary" as gold target.
+
+Unfortunately, in this first trial, we only managed to obtain a model that could faithfully replicate the gold targets (brief_summary), and not one that could extract information from other important fields of the trial and that was very often missing from this given "brief_summary". 
 
 ---
 
@@ -59,7 +63,15 @@ The summarization step is applied primarily to the detailed_description field, w
 
 Beyond length reduction, an important goal of the summarization component is linguistic simplification. To assess this, multiple readability measures are applied to the generated summaries, including Flesch Reading Ease and Flesch–Kincaid Grade Level. These metrics are used to quantify improvements in accessibility compared to the original clinical trial text.
 
-In addition to standard readability formulas, a simple-English–oriented analysis is conducted by estimating jargon density. This analysis helps identify whether the summarization model successfully reduces the proportion of complex or specialized terms, or whether additional support is needed to help users understand the remaining technical language. The findings from this step motivate the introduction of an explicit glossary component.
+In addition to standard readability formulas, a simple-English–oriented analysis is conducted by estimating jargon density. This analysis helps identify whether the summarization model successfully reduces the proportion of complex or specialized terms, or whether additional support is needed to help users understand the remaining technical language.
+
+The problem with the simplification step, was that we didn't even have any gold target to use, so we had to find the solution in something else. After a long research and documentation, we found the dataset GEM/cochrane-simplification https://huggingface.co/datasets/GEM/cochrane-simplification which could be a solution to our exact problem. It contains medical text before and after simplification "Cochrane is an English dataset for paragraph-level simplification of medical texts".
+
+So our goal was to train a Seq2Seq model on this new dataset, which was containing exactly what we wanted: medical text before and after simplification, and then to use this model on our summarization of the clinical trial. In order to do this we picked a "t5-base" pretrained Seq2Seq model and tried to fine-tune it on the GEM/cochrane-simplification dataset. We even performed a learning rate finder experiment to find out the best learning rate for our specific task. 
+
+After this training, we applied the model to the "brief_summary" from our dataset. Reading both the brief_summary and simplified version, one can see in the code that the model is just copying parts of the brief_summary, without having real understanding of the context or how it should be modified in a patient-friendly manner. Even looking at our defined metrics for readability, one can see almost no different between the original brief summary and the generated "simplified" one.
+
+From all the experiments we have done, with different learning rates, different batch sizes, different model, this is "the best" outcome we managed to output during this trial. We argue that the problem lies in the dataset that the model is fine-tuned on, which was also the best we could find for this specific task.
 
 ---
 
@@ -80,19 +92,21 @@ When no suitable definition is available through BioPortal, Wikipedia is used as
 ---
 ### 4. LLM-Based Generation with Groq and LLaMA
 
-In the final stage of the pipeline, a large language model is used to generate patient-friendly summaries based on the processed clinical trial text. For this purpose, we integrate the Groq API with a LLaMA-based instruction-tuned model. This setup allows for fast inference while maintaining high-quality natural language generation.
+After failing to fine-tune our own models, mainly due to lack of proper gold targets, we decided to use an already fine-tuned LLM.
+
+So, in the final stage of the pipeline, a large language model is used to generate patient-friendly summaries based on the processed clinical trial text. For this purpose, we integrate the Groq API with a LLaMA-based instruction-tuned model. This setup allows for fast inference while maintaining high-quality natural language generation.
 
 The LLM is prompted with structured inputs derived from earlier pipeline stages, including cleaned trial descriptions and relevant contextual information. The model is instructed to produce concise, plain-English summaries that focus on the key aspects of a clinical trial, such as its purpose, target population, and main intervention. Special care is taken in prompt design to encourage faithful rewriting rather than the introduction of new or speculative information.
 
-This LLM-based generation step complements the earlier summarization and glossary components. While traditional summarization models help reduce text length and complexity, the LLaMA-based model further improves fluency and readability, making the final output more suitable for non-expert users. By combining deterministic preprocessing steps with generative modeling, the pipeline balances control, interpretability, and linguistic quality.
+Therefore, is safe to say that we combined the summarization and simplification step into one single step, using a model that knows how to directly generate a summary using a specific given vocabulary.
 
-The use of Groq enables efficient experimentation and rapid iteration, which is particularly useful in a research and prototyping setting. Overall, this component completes the system by producing coherent, patient-oriented summaries that integrate seamlessly with the glossary and readability evaluation outputs developed in earlier stages.
+This LLM-based generation step complements the earlier glossary component. The use of Groq enables efficient experimentation and rapid iteration, which is particularly useful in a research and prototyping setting. Overall, this component completes the system by producing coherent, patient-oriented summaries that integrate seamlessly with the glossary and readability evaluation outputs developed in earlier stages.
 
 
 
 ##  Overall Conclusion
 
-The final system integrates all components developed throughout the project into a single pipeline. Given a clinical trial identifier, the pipeline produces three complementary artifacts: a patient-friendly summary of the trial, a glossary of medical terms with explanations, and a set of readability and faithfulness metrics comparing the generated text to the original description. Together, these outputs aim to improve both accessibility and transparency of clinical trial information.
+The final system integrates the Groq and glossary components into a single pipeline. Given a clinical trial identifier, the pipeline produces three complementary artifacts: a patient-friendly summary of the trial, a glossary of medical terms with explanations, and a set of readability and faithfulness metrics comparing the generated text to the original description. Together, these outputs aim to improve both accessibility and transparency of clinical trial information.
 
 This milestone completes the project’s objective of bridging the language gap between clinical research documentation and patient understanding. By combining summarization, simplification, and targeted explanation of medical terminology, the system provides a practical and extensible approach for making clinical trial information more accessible to non-expert audiences.
 
