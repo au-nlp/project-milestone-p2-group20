@@ -119,6 +119,7 @@ Ilinca: data preprocessing(missing values, length of text) and glossary formatio
 
 Flaviu: data preprocessing(data overlook, selecting necessary features, readability metrics), simplification model trial
 
+Sayana: data preprocessing(jargon density - simple english metric and implementation using wordfreq), summarization model trial, groq LLaMa implementation
 
 
 ## Repo Organization: 
