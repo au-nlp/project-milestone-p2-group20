@@ -113,6 +113,13 @@ This milestone completes the project’s objective of bridging the language gap 
 Across all milestones, this project demonstrates that a systematic NLP pipeline can significantly improve the accessibility of clinical trial descriptions without sacrificing essential medical information. The combination of data analysis, model-based summarization, readability evaluation, and glossary generation offers a comprehensive framework for patient-centered clinical text processing. The final system is modular and can be extended in future work to support personalization, multilingual output, or integration with real-world clinical trial platforms.
 
 
+##  Contributions
+
+Ilinca: data preprocessing(missing values, length of text) and glossary formation (medical term identification and definition retrieval)
+
+Flaviu: data preprocessing(data overlook, selecting necessary features, readability metrics), simplification model trial
+
+
 
 ## Repo Organization: 
 To add new implementation please create new branch and do merge request (do not push directly to 
